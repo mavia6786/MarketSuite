@@ -1,0 +1,232 @@
+{
+  "base": "http://localhost:5055",
+  "pass": 45,
+  "fail": 0,
+  "results": [
+    {
+      "name": "owners can log in",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "/me returns role=Owner and the permission list",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Owner creates a Manager",
+      "ok": true,
+      "detail": "status 201 "
+    },
+    {
+      "name": "new staff must change the temporary password first (403 PASSWORD_CHANGE_REQUIRED)",
+      "ok": true,
+      "detail": "status 403 PASSWORD_CHANGE_REQUIRED"
+    },
+    {
+      "name": "Manager can change password and gets a working token",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Owner creates a Cashier",
+      "ok": true,
+      "detail": "status 201 "
+    },
+    {
+      "name": "Cashier can change password and gets a working token",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Owner creates a StockManager",
+      "ok": true,
+      "detail": "status 201 "
+    },
+    {
+      "name": "StockManager can change password and gets a working token",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Owner creates a Accountant",
+      "ok": true,
+      "detail": "status 201 "
+    },
+    {
+      "name": "Accountant can change password and gets a working token",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "role x endpoint matrix: 39 endpoints x 5 roles = 195 cells all correct",
+      "ok": true,
+      "detail": "3 cells hit a stand-in-only 500 (handler needs real MongoDB; authorization itself passed)"
+    },
+    {
+      "name": "every matrix endpoint returns 401 without a token",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "clothes Cashier: products 200, sales view 200, POS salesmen/active 200",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "clothes Cashier: delete product / refund / staff list / stats / payroll -> 403",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "shoes Manager token is rejected on /api/clothes/* (shop-type isolation still holds)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Owner role cannot be assigned through the API",
+      "ok": true,
+      "detail": "status 400"
+    },
+    {
+      "name": "weak temp password rejected when creating a user",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "duplicate email -> 409",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Owner cannot disable own account",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Owner role cannot be changed",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "other shop cannot see / edit this shop's users",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "user list only contains this shop's users (no clothes emails)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "changing a user's role revokes their old token (TOKEN_REVOKED)",
+      "ok": true,
+      "detail": "role 200, old token 401 TOKEN_REVOKED"
+    },
+    {
+      "name": "new login shows the new role's permissions",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "disabling a user kills their session immediately",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "a disabled user cannot log in (403 ACCOUNT_DISABLED)",
+      "ok": true,
+      "detail": "status 403"
+    },
+    {
+      "name": "logout revokes the token",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "change-password with wrong current password -> 400",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "change-password enforces the password policy",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "after a password change the OLD token is revoked and the NEW token works",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "refresh issues a fresh working token",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Owner reset-password ends the user's sessions and forces a change",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "5 wrong passwords lock the account (423) even for the correct password",
+      "ok": true,
+      "detail": "5th wrong=423, correct-after=423"
+    },
+    {
+      "name": "Owner can unlock the account",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "register rejects short / no-digit / no-letter / common passwords",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "register rejects an invalid email",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "self sign-up creates an Owner with NO shop and no access to shop data (dev mode)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "PRODUCTION: public sign-up is disabled once users exist (403 SIGNUP_DISABLED)",
+      "ok": true,
+      "detail": "status 403"
+    },
+    {
+      "name": "login endpoint is rate-limited per IP (429 after AUTH_RATE_MAX attempts)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "helmet security headers present (nosniff, frame, no x-powered-by)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "audit log recorded login, user.create, user.update, password change, logout, forbidden attempts, product.delete",
+      "ok": true,
+      "detail": "missing: none"
+    },
+    {
+      "name": "audit log never contains passwords or tokens",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "audit log is shop-scoped (clothes owner sees none of the shoes entries)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Cashier cannot read the audit log",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

@@ -1,0 +1,205 @@
+{
+  "base": "http://localhost:5000",
+  "pass": 37,
+  "fail": 0,
+  "deferredFail": 2,
+  "results": [
+    {
+      "name": "login works for both seeded shops",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "wrong password -> 401",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "mixed-case email can log in",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "no token -> 401",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Shoes-shop token is REJECTED on /api/clothes/*",
+      "ok": true,
+      "detail": "status 403"
+    },
+    {
+      "name": "Clothes-shop token is REJECTED on /api/shoes/*",
+      "ok": true,
+      "detail": "status 403"
+    },
+    {
+      "name": "seed products visible",
+      "ok": true,
+      "detail": "shoes=7 clothes=6"
+    },
+    {
+      "name": "clothes user cannot read a shoe product by id",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "shop profile PUT cannot change type / isActive",
+      "ok": true,
+      "detail": "type=Shoes isActive=true (PUT 200)"
+    },
+    {
+      "name": "negative quantity sale is rejected (cannot inflate stock)",
+      "ok": true,
+      "detail": "status 400, stock 20->20"
+    },
+    {
+      "name": "zero/negative unit price is rejected",
+      "ok": true,
+      "detail": "status 400"
+    },
+    {
+      "name": "negative discount is rejected",
+      "ok": true,
+      "detail": "status 400"
+    },
+    {
+      "name": "fractional quantity is rejected",
+      "ok": true,
+      "detail": "status 400"
+    },
+    {
+      "name": "valid sale -> 201 and stock deducted by qty",
+      "ok": true,
+      "detail": "status 201, stock 20->18"
+    },
+    {
+      "name": "invoice numbers are unique/sequential",
+      "ok": true,
+      "detail": "INV-2026-0004 / INV-2026-0005"
+    },
+    {
+      "name": "3 concurrent refunds of one sale restore stock exactly once",
+      "ok": true,
+      "detail": "successes=1, stock 17->19 (expected +2)"
+    },
+    {
+      "name": "concurrent sales cannot oversell (stock 3, 4 x qty2 -> max 1 succeeds, stock >= 0)",
+      "ok": true,
+      "detail": "succeeded=1, final stock=1"
+    },
+    {
+      "name": "clothes: negative quantity sale rejected",
+      "ok": true,
+      "detail": "status 400, stock 50->50"
+    },
+    {
+      "name": "clothes: valid sale -> 201",
+      "ok": true,
+      "detail": "status 201 "
+    },
+    {
+      "name": "clothes: concurrent refunds restore stock exactly once",
+      "ok": true,
+      "detail": "successes=1, stock 48->50"
+    },
+    {
+      "name": "clothes search with regex metachar does not 500",
+      "ok": true,
+      "detail": "status 200"
+    },
+    {
+      "name": "purchase order created",
+      "ok": true,
+      "detail": "status 201 "
+    },
+    {
+      "name": "PO persists its line items",
+      "ok": true,
+      "detail": "items=[{\"productId\":\"6acf898c801cd3f387de69f0\",\"productName\":\"Court Vision Pro\",\"quantity\":10,\"unitCost\":1000,\"_id\":\"6acf89f6be7295ecc6ef95f3\"}]"
+    },
+    {
+      "name": "PO persists the advance payment record",
+      "ok": true,
+      "detail": "paidAmount=2000 payments=[{\"amount\":2000,\"date\":\"2026-10-14T13:56:06.219Z\",\"method\":\"Cash\",\"note\":\"Advance with order\",\"_id\":\"6acf89f6be7295ecc6ef95f4\"}]"
+    },
+    {
+      "name": "supplier payment recorded, outstanding balance = 10000-5000",
+      "ok": true,
+      "detail": "status 201, paid=5000, pending=5000, payments=2"
+    },
+    {
+      "name": "receiving PO adds stock (+10)",
+      "ok": true,
+      "detail": "status 200 , stock 20->30"
+    },
+    {
+      "name": "receiving the same PO twice does not double-add stock",
+      "ok": true,
+      "detail": "second receive status 400, stock 30->30"
+    },
+    {
+      "name": "other shop cannot read this supplier",
+      "ok": true,
+      "detail": "status 404"
+    },
+    {
+      "name": "negative advance rejected",
+      "ok": true,
+      "detail": "status 400"
+    },
+    {
+      "name": "salary payment above net payable is rejected",
+      "ok": false,
+      "detail": "status 200, netPayable=undefined, amountPaid=undefined",
+      "deferredTo": "Session 9 (payroll)"
+    },
+    {
+      "name": "paying an already-paid month is rejected (no double payment)",
+      "ok": false,
+      "detail": "first 200, second 200",
+      "deferredTo": "Session 9 (payroll)"
+    },
+    {
+      "name": "negative expense rejected",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "expense recorded",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "P&L endpoint responds with 12 months",
+      "ok": true,
+      "detail": "status 200"
+    },
+    {
+      "name": "weak 1-char password is rejected at signup",
+      "ok": true,
+      "detail": "status 400"
+    },
+    {
+      "name": "user without a shop gets 400 on shop routes",
+      "ok": true,
+      "detail": "status 400"
+    },
+    {
+      "name": "register-shop rejects invalid shop type",
+      "ok": true,
+      "detail": "status 400"
+    },
+    {
+      "name": "malformed id -> 400 (no crash)",
+      "ok": true,
+      "detail": "status 400"
+    },
+    {
+      "name": "server still healthy after probes",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

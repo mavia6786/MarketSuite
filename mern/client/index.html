@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MarketSuite — Premium Store Management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/app.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        gold: { 300: '#fcd34d', 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706' },
+                        obsidian: { 900: '#0a0a0f', 800: '#111118', 700: '#18181f', 600: '#1f1f29', 500: '#2a2a38', 400: '#3a3a4e' },
+                        cream: { 50: '#faf8f2', 100: '#f5f0e8' }
+                    },
+                    fontFamily: {
+                        display: ['Playfair Display', 'serif'],
+                        sans: ['DM Sans', 'ui-sans-serif', 'system-ui'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-obsidian-900 text-slate-100 font-sans">
+    <div id="root"></div>
+    <script src="/app.js?v=2"></script>
+    <script type="module" src="/src/main.jsx"></script>
+</body>
+</html>
