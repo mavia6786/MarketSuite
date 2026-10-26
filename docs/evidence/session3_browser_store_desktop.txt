@@ -1,0 +1,28 @@
+PASS [desktop] first page shows 24 of 37 products
+PASS [desktop] category chips come from the backend
+PASS [desktop] products without a photo use a letter tile
+PASS [desktop] out-of-stock label on sold-out products
+PASS [desktop] no horizontal overflow (shop page)
+PASS [desktop] real product photo loads (naturalWidth>0)
+PASS [desktop] discount shown (20% off) with struck original price
+PASS [desktop] search narrows to 1 result and writes ?q= to the URL
+PASS [desktop] no-match state with clear button
+PASS [desktop] clearing restores the list and empties the box
+PASS [desktop] category filter (Women = 16 products), URL has ?category=
+PASS [desktop] pagination shows Page 1 of 2, Previous disabled
+PASS [desktop] page 2 shows the remaining 13, URL ?page=2
+PASS [desktop] product page: name, price, in stock
+PASS [desktop] product page: sizes and colors listed
+PASS [desktop] contact: phone is a tel: link
+PASS [desktop] back link returns to page 2
+PASS [desktop] no horizontal overflow (product page)
+PASS [desktop] clicking back lands on page 2 again
+PASS [desktop] sold-out product page says "Out of stock"
+PASS [desktop] product page with photo, description keeps line breaks
+PASS [desktop] clothes shop lists its 6 products
+PASS [desktop] clothes product: discount, size M, color Navy
+PASS [desktop] unknown product -> "This product isn’t available"
+PASS [desktop] keyboard: Tab reaches a product link
+PASS [desktop] keyboard: Enter opens the product
+PASS [desktop] no console errors on the product pages
+TOTAL 27 / 27

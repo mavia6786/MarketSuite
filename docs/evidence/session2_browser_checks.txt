@@ -1,0 +1,17 @@
+Headless Chromium 141 (Playwright), scripts were run from the sandbox (not shipped). Console output, copied by hand:
+
+STORE (Vite dev server :5174 proxying /api to the real backend :5000, desktop 1280px and mobile 390px)
+  16 of 16 checks passed on the final run: shops list from the real backend, switched-off shop not listed,
+  no horizontal overflow, shop page shows name/city/phone, switched-off shop -> "Shop not found" (not the generic
+  "service not connected" notice), ?type= and ?q= filters, no console errors (the browser's own log line for the
+  deliberate 404 of the switched-off shop was excluded).
+  (An earlier run of the same script used the wrong URL /shops/<slug>; the Store's route is /shop/<slug>. Fixed in the script.)
+
+PORTAL (Vite dev server :5173, logged in as the seeded owners)
+  8 of 10 passed. Passed: Online store card visible to the Owner; switching it OFF removes the shop from /api/public/shops
+  and ON restores it; every shoe product card has an Online switch; toggling publishes/unpublishes in the public
+  catalogue (shoes); clothes page has the card and the Online column; clothes toggle publishes.
+  The 2 "failed" checks were "no page errors": the portal's index.html loads Tailwind from cdn.tailwindcss.com, which is
+  blocked in the sandbox network ("tailwind is not defined"). Pre-existing, unrelated to this change. Because of it the
+  portal screenshots were unstyled and are not included.
+  NOT browser-tested: what a Cashier/Manager sees in the portal (hidden card/switches); only the server-side 403s are tested.

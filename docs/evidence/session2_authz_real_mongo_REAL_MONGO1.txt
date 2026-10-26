@@ -1,0 +1,44 @@
+PASS  owners can log in
+PASS  /me returns role=Owner and the permission list
+PASS  Owner creates a Manager  -> status 201 
+PASS  new staff must change the temporary password first (403 PASSWORD_CHANGE_REQUIRED)  -> status 403 PASSWORD_CHANGE_REQUIRED
+PASS  Manager can change password and gets a working token
+PASS  Owner creates a Cashier  -> status 201 
+PASS  Cashier can change password and gets a working token
+PASS  Owner creates a StockManager  -> status 201 
+PASS  StockManager can change password and gets a working token
+PASS  Owner creates a Accountant  -> status 201 
+PASS  Accountant can change password and gets a working token
+PASS  role x endpoint matrix: 39 endpoints x 5 roles = 195 cells all correct
+PASS  every matrix endpoint returns 401 without a token
+PASS  clothes Cashier: products 200, sales view 200, POS salesmen/active 200
+PASS  clothes Cashier: delete product / refund / staff list / stats / payroll -> 403
+PASS  shoes Manager token is rejected on /api/clothes/* (shop-type isolation still holds)
+PASS  Owner role cannot be assigned through the API  -> status 400
+PASS  weak temp password rejected when creating a user
+PASS  duplicate email -> 409
+PASS  Owner cannot disable own account
+PASS  Owner role cannot be changed
+PASS  other shop cannot see / edit this shop's users
+PASS  user list only contains this shop's users (no clothes emails)
+PASS  changing a user's role revokes their old token (TOKEN_REVOKED)  -> role 200, old token 401 TOKEN_REVOKED
+PASS  new login shows the new role's permissions
+PASS  disabling a user kills their session immediately
+PASS  a disabled user cannot log in (403 ACCOUNT_DISABLED)  -> status 403
+PASS  logout revokes the token
+PASS  change-password with wrong current password -> 400
+PASS  change-password enforces the password policy
+PASS  after a password change the OLD token is revoked and the NEW token works
+PASS  refresh issues a fresh working token
+PASS  Owner reset-password ends the user's sessions and forces a change
+PASS  5 wrong passwords lock the account (423) even for the correct password  -> 5th wrong=423, correct-after=423
+PASS  Owner can unlock the account
+PASS  register rejects short / no-digit / no-letter / common passwords
+PASS  register rejects an invalid email
+PASS  self sign-up creates an Owner with NO shop and no access to shop data (dev mode)
+PASS  audit log recorded login, user.create, user.update, password change, logout, forbidden attempts, product.delete  -> missing: none
+PASS  audit log never contains passwords or tokens
+PASS  audit log is shop-scoped (clothes owner sees none of the shoes entries)
+PASS  Cashier cannot read the audit log
+
+42 passed, 0 failed

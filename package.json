@@ -1,0 +1,14 @@
+{
+  "name": "marketsuite-store-workspace",
+  "private": true,
+  "description": "MarketSuite: management portal (existing) + customer-facing Store (new). Two separate apps.",
+  "scripts": {
+    "install:all": "npm --prefix management/server install && npm --prefix management/client install && npm --prefix store install",
+    "dev:api": "npm --prefix management/server run dev",
+    "dev:portal": "npm --prefix management/client run dev",
+    "dev:store": "npm --prefix store run dev",
+    "check:store": "npm --prefix store run lint && npm --prefix store run test && npm --prefix store run build",
+    "check:management": "npm --prefix management/server run test:unit && npm --prefix management/server run test:routes && npm --prefix management/client run build",
+    "check": "npm run check:management && npm run check:store"
+  }
+}

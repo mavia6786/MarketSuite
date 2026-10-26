@@ -1,0 +1,109 @@
+@import '@fontsource-variable/bricolage-grotesque';
+@import '@fontsource-variable/figtree';
+@import 'tailwindcss';
+
+/*
+ * MarketSuite Store design tokens (light theme only — the store is a daytime, colourful bazaar).
+ * Components use semantic tokens; change the variables here to re-skin the whole store.
+ */
+:root {
+  --st-canvas: #fbfaff;
+  --st-surface: #ffffff;
+  --st-surface-2: #f2f0fc;
+  --st-line: #e5e2f3;
+  --st-ink: #17142e;
+  --st-muted: #5e5a78;
+  --st-brand: #4f36e8;
+  --st-brand-hover: #3f27cf;
+  --st-brand-soft: #ece9ff;
+  --st-on-brand: #ffffff;
+  --st-accent: #ff6b3d;
+  --st-sun: #ffc247;
+  --st-success: #0e7a54;
+  --st-danger: #b3261e;
+}
+
+@theme inline {
+  --color-canvas: var(--st-canvas);
+  --color-surface: var(--st-surface);
+  --color-surface-2: var(--st-surface-2);
+  --color-line: var(--st-line);
+  --color-ink: var(--st-ink);
+  --color-muted: var(--st-muted);
+  --color-brand: var(--st-brand);
+  --color-brand-hover: var(--st-brand-hover);
+  --color-brand-soft: var(--st-brand-soft);
+  --color-on-brand: var(--st-on-brand);
+  --color-accent: var(--st-accent);
+  --color-sun: var(--st-sun);
+  --color-success: var(--st-success);
+  --color-danger: var(--st-danger);
+
+  --font-sans: 'Figtree Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Bricolage Grotesque Variable', 'Figtree Variable', ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    background: var(--st-canvas);
+    color: var(--st-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  :focus-visible {
+    outline: 3px solid var(--st-brand);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  ::selection {
+    background: var(--st-sun);
+    color: var(--st-ink);
+  }
+}
+
+/* The one signature element: a shop awning. Used as the top edge of every shop card. */
+.st-awning {
+  height: 14px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--st-brand) 0 18px,
+    var(--st-surface) 18px 36px
+  );
+  border-bottom: 3px solid var(--st-brand);
+  border-radius: 0 0 14px 14px / 0 0 10px 10px;
+}
+
+@keyframes st-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+.st-skeleton {
+  animation: st-pulse 1.4s ease-in-out infinite;
+  background: var(--st-surface-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .st-skeleton {
+    animation: none;
+  }
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}

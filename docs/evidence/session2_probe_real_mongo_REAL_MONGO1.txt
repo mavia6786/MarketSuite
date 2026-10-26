@@ -1,0 +1,41 @@
+PASS  login works for both seeded shops
+PASS  wrong password -> 401
+PASS  mixed-case email can log in
+PASS  no token -> 401
+PASS  Shoes-shop token is REJECTED on /api/clothes/*  -> status 403
+PASS  Clothes-shop token is REJECTED on /api/shoes/*  -> status 403
+PASS  seed products visible  -> shoes=7 clothes=6
+PASS  clothes user cannot read a shoe product by id
+PASS  shop profile PUT cannot change type / isActive  -> type=Shoes isActive=true (PUT 200)
+PASS  negative quantity sale is rejected (cannot inflate stock)  -> status 400, stock 20->20
+PASS  zero/negative unit price is rejected  -> status 400
+PASS  negative discount is rejected  -> status 400
+PASS  fractional quantity is rejected  -> status 400
+PASS  valid sale -> 201 and stock deducted by qty  -> status 201, stock 20->18
+PASS  invoice numbers are unique/sequential  -> INV-2026-0001 / INV-2026-0002
+PASS  3 concurrent refunds of one sale restore stock exactly once  -> successes=1, stock 17->19 (expected +2)
+PASS  concurrent sales cannot oversell (stock 3, 4 x qty2 -> max 1 succeeds, stock >= 0)  -> succeeded=1, final stock=1
+PASS  clothes: negative quantity sale rejected  -> status 400, stock 30->30
+PASS  clothes: valid sale -> 201  -> status 201 
+PASS  clothes: concurrent refunds restore stock exactly once  -> successes=1, stock 28->30
+PASS  clothes search with regex metachar does not 500  -> status 200
+PASS  purchase order created  -> status 201 
+PASS  PO persists its line items  -> items=[{"productId":"6ad8a129dc266fdc3d4d96ba","productName":"Court Vision Pro","quantity":10,"unitCost":1000,"_id":"6ad8a12e61f245e43c311a75"}]
+PASS  PO persists the advance payment record  -> paidAmount=2000 payments=[{"amount":2000,"date":"2026-10-21T11:25:34.848Z","method":"Cash","note":"Advance with order","_id":"6ad8a12e61f245e43c311a76"}]
+PASS  supplier payment recorded, outstanding balance = 10000-5000  -> status 201, paid=5000, pending=5000, payments=2
+PASS  receiving PO adds stock (+10)  -> status 200 , stock 20->30
+PASS  receiving the same PO twice does not double-add stock  -> second receive status 400, stock 30->30
+PASS  other shop cannot read this supplier  -> status 404
+PASS  negative advance rejected  -> status 400
+DEFER  salary payment above net payable is rejected  -> status 200, netPayable=undefined, amountPaid=undefined  [deferred to Session 9 (payroll)]
+DEFER  paying an already-paid month is rejected (no double payment)  -> first 200, second 200  [deferred to Session 9 (payroll)]
+PASS  negative expense rejected
+PASS  expense recorded
+PASS  P&L endpoint responds with 12 months  -> status 200
+PASS  weak 1-char password is rejected at signup  -> status 400
+PASS  user without a shop gets 400 on shop routes  -> status 400
+PASS  register-shop rejects invalid shop type  -> status 400
+PASS  malformed id -> 400 (no crash)  -> status 400
+PASS  server still healthy after probes
+
+37 passed, 0 failed, 2 known-deferred

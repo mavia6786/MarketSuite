@@ -1,0 +1,87 @@
+PASS  owners can log in
+PASS  Cashier and Manager tokens ready
+PASS  no token -> 401 on storefront switch
+PASS  Cashier cannot switch the online store (403)
+PASS  Manager cannot switch the online store (needs shop.edit, 403)
+PASS  non-boolean storefrontEnabled -> 400 VALIDATION
+PASS  profile update cannot set storefrontEnabled / slug / type
+PASS  storefront OFF: shop is not in the public list
+PASS  storefront OFF: by slug -> 404 SHOP_NOT_FOUND
+PASS  Owner enables the online store; shop gets a valid slug
+PASS  clothes shop enabled with its own slug
+PASS  slug is stable when toggled again
+PASS  public shops list 200 with { items, total, page, pageSize }
+PASS  both enabled shops are listed
+PASS  shop objects contain exactly the whitelisted fields
+PASS  shops list leaks no internal field
+PASS  ?type=Clothes shows only clothes shops
+PASS  ?type=shoes (any case) works
+PASS  ?q= matches by name
+PASS  ?q= with regex characters is a literal (no crash, no match)
+PASS  ?type=bogus -> 400 VALIDATION
+PASS  operator injection ?q[$ne]= -> 400 VALIDATION (not 500)
+PASS  repeated ?q=a&q=b -> 400
+PASS  page=0 / page=abc / pageSize=51 -> 400
+PASS  over-long q -> 400
+PASS  pageSize=1 returns one item and the real total
+PASS  page beyond the end -> 200 with empty items
+PASS  shop by slug 200 { data: PublicShop } whitelisted
+PASS  unknown / malformed slugs -> 404 SHOP_NOT_FOUND
+PASS  unknown /api/public route keeps NOT_FOUND code (Store tells it apart)
+PASS  nothing published yet -> empty product list
+PASS  products default isPublished=false
+PASS  unpublished product by id -> 404 PRODUCT_NOT_FOUND
+PASS  Cashier cannot publish (403)
+PASS  no token cannot publish (401)
+PASS  non-boolean isPublished -> 400
+PASS  Manager (products.edit) can publish
+PASS  other shop cannot publish my product by id (404)
+PASS  shoes owner is rejected on the clothes publish route (403)
+PASS  unknown product id -> 404
+PASS  POST create with isPublished:true is ignored (stays false)
+PASS  PUT update with isPublished:true is ignored
+PASS  published products appear: { items, total, page, pageSize }
+PASS  product objects contain exactly the whitelisted fields
+PASS  products list never contains costPrice, stock numbers, shopId, owner/staff/finance fields
+PASS  raw JSON text has no costPrice / shopId
+PASS  inStock is boolean and false for the out-of-stock product
+PASS  sizes/colors are arrays of strings
+PASS  inactive (deleted) products never appear
+PASS  unpublish removes it at once
+PASS  product by id 200 { data: PublicProduct } whitelisted
+PASS  malformed product id -> 404 PRODUCT_NOT_FOUND (not 400/500)
+PASS  ?q= on products by brand
+PASS  ?category= is case-insensitive exact
+PASS  products ?q[$ne]= -> 400
+PASS  products pageSize=1 paginates
+PASS  non-http(s) image URL is not passed on
+PASS  clothes product edit works (was 400 "Unscoped query" before)
+PASS  clothes stock update works (was 400 before)
+PASS  Cashier-less: clothes publish by owner
+PASS  clothes create ignores isPublished:true
+PASS  clothes shop products: identical shape to shoes
+PASS  clothes price is the effective (discounted) price with the original shown as originalPrice
+PASS  clothes product by id works
+PASS  shop A product id under shop B (clothes) slug -> 404 PRODUCT_NOT_FOUND
+PASS  clothes product id under the shoes slug -> 404
+PASS  second shop (same name, same type) can be registered
+PASS  slug collision handled: second shop gets -2
+PASS  product of shop A under shop B (same type) slug -> 404
+PASS  shop B has no published products
+PASS  shop B's list does not include shop A's products
+PASS  disabled: not in list
+PASS  disabled: shop by slug -> 404 SHOP_NOT_FOUND
+PASS  disabled: products list -> 404 SHOP_NOT_FOUND
+PASS  disabled: product by id -> 404 SHOP_NOT_FOUND
+PASS  re-enabled: visible again with the same slug and published products
+PASS  isActive=false shop is invisible (list + slug)
+PASS  public endpoints are read-only (POST/PUT/DELETE -> 404)
+PASS  Cache-Control: no-cache (revalidate) on public responses
+PASS  CORS: Store origin is allowed
+PASS  CORS: unknown origin gets no allow header
+PASS  existing protected routes unchanged: no token -> 401
+PASS  health still ok
+PASS  public rate limit: 429 RATE_LIMITED after PUBLIC_RATE_MAX
+PASS  rate limit does not affect /api/health
+
+85 passed, 0 failed, 0 skipped
